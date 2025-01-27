@@ -471,7 +471,7 @@
                 // Source: https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Bypassing_the_cache
                 url += ((/\?/).test(url) ? "&" : "?") + (new Date()).getTime();
             }
-
+            if(location.protocol=="https" && /^http:/.test(url)) url = url.replace(/^http?/,"");//解决跨协议请求导致的安全异常
             return new Promise(function (resolve) {
                 var request = new XMLHttpRequest();
 
