@@ -725,8 +725,11 @@
                     .then(function (dataUrl) {
                         return new Promise(function (resolve, reject) {
                             element.onload = resolve;
-                            element.onerror = reject;
-                            element.src = dataUrl;
+                            element.onerror = resolve;
+                            if(/^data:/.test(dataUrl)||/^blob:/.test(dataUrl))
+                                resolve()
+                            else
+                                element.src = dataUrl;
                         });
                     });
             }
